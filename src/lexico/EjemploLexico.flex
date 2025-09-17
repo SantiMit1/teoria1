@@ -18,10 +18,10 @@ import java.util.*;
 ESPACIO     = [ \t\f\n\r\n]+
 LETRA       = [a-zA-Z]
 DIGITO      = [0-9]
-INT         = {DIGITO}+
-FLOAT       = ({DIGITO}+ "." {DIGITO}* | {DIGITO}* "." {DIGITO}+)
-HEX         = "0"[hH]({DIGITO}|[a-fA-F])+
-STRING      = \"([^\"\n])*\"
+CONST_INT   = {DIGITO}+
+CONST_FLOAT = ({DIGITO}+ "." {DIGITO}* | {DIGITO}* "." {DIGITO}+)
+CONST_HEX   = "0"[hH]({DIGITO}|[a-fA-F])+
+CONST_STRING = \"([^\"\n])*\"
 COMMENT     = "\\$\\*"([^])*"\\*\\$"
 ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 
@@ -69,10 +69,20 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 "}"                 {System.out.println("Token RBRACE encontrado, Lexema " + yytext());}
 
 {ID}                {System.out.println("Token ID encontrado, Lexema " + yytext());}
-{INT}               {System.out.println("Token INT_LITERAL encontrado, Lexema " + yytext());}
-{FLOAT}             {System.out.println("Token FLOAT_LITERAL encontrado, Lexema " + yytext());}
-{HEX}               {System.out.println("Token HEX encontrado, Lexema " + yytext());}
-{STRING}            {System.out.println("Token STRING_LITERAL encontrado, Lexema " + yytext());}
+{CONST_INT}         {
+    try {
+        long valor = Long.parseLong(yytext());
+        if (valor < -32768 || valor > 32767) {
+            throw new Error("CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline);
+        }
+        System.out.println("Token CONST_INT encontrado, Lexema " + yytext());
+    } catch (NumberFormatException e) {
+        throw new Error("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
+    }
+}
+{CONST_FLOAT}             {System.out.println("Token CONST_FLOAT encontrado, Lexema " + yytext());}
+{CONST_HEX}               {System.out.println("Token HEX encontrado, Lexema " + yytext());}
+{CONST_STRING}            {System.out.println("Token CONST_STRING encontrado, Lexema " + yytext());}
 
 {ESPACIO}           {/* ignorar */}
 {COMMENT}           {/* ignorar */}
