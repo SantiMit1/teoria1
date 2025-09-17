@@ -1,4 +1,4 @@
-package ejemploflex;
+package lexico;
 import java_cup.runtime.*;
 import java.util.*;
 
@@ -18,7 +18,6 @@ import java.util.*;
 ESPACIO     = [ \t\f\n\r\n]+
 LETRA       = [a-zA-Z]
 DIGITO      = [0-9]
-CONST_INT   = {DIGITO}+
 INT         = {DIGITO}+
 FLOAT       = ({DIGITO}+ "." {DIGITO}* | {DIGITO}* "." {DIGITO}+)
 HEX         = "0"[hH]({DIGITO}|[a-fA-F])+
@@ -70,7 +69,7 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 "}"                 {System.out.println("Token RBRACE encontrado, Lexema " + yytext());}
 
 {ID}                {System.out.println("Token ID encontrado, Lexema " + yytext());}
-{CONST_INT}         {System.out.println("Token CONST_INT encontrado, Lexema " + yytext());}
+{INT}               {System.out.println("Token INT_LITERAL encontrado, Lexema " + yytext());}
 {FLOAT}             {System.out.println("Token FLOAT_LITERAL encontrado, Lexema " + yytext());}
 {HEX}               {System.out.println("Token HEX encontrado, Lexema " + yytext());}
 {STRING}            {System.out.println("Token STRING_LITERAL encontrado, Lexema " + yytext());}
