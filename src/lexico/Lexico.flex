@@ -4,7 +4,6 @@ import java.util.*;
 
 %%
 
-
 %cup
 %public
 %class Lexico
@@ -12,8 +11,11 @@ import java.util.*;
 %column
 %char
 
+%{
+    private int commentLevel = 0;
+%}
 
-
+%state COMMENT
 
 ESPACIO     = [ \t\f\n\r\n]+
 LETRA       = [a-zA-Z]
@@ -22,7 +24,6 @@ CONST_INT   = {DIGITO}+
 CONST_FLOAT = ({DIGITO}+ "." {DIGITO}* | {DIGITO}* "." {DIGITO}+)
 CONST_HEX   = "0"[hH]({DIGITO}|[a-fA-F])+
 CONST_STRING = \"([^\"\n])*\"
-COMMENT     = "\\$\\*"([^])*"\\*\\$"
 ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 
 %%
@@ -68,6 +69,8 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 "{"                 {System.out.println("Token LBRACE encontrado, Lexema " + yytext());}
 "}"                 {System.out.println("Token RBRACE encontrado, Lexema " + yytext());}
 
+"$*"                {commentLevel = 1; yybegin(COMMENT);}
+
 {ID}                {System.out.println("Token ID encontrado, Lexema " + yytext());}
 {CONST_INT}         {
     try {
@@ -85,30 +88,24 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 {CONST_STRING}            {System.out.println("Token CONST_STRING encontrado, Lexema " + yytext());}
 
 {ESPACIO}           {/* ignorar */}
-{COMMENT}           {/* ignorar */}
 }
 
+<COMMENT> {
+"$*"                {
+                        commentLevel++;
+                        if (commentLevel > 2) {
+                            throw new Error("Comentarios anidados exceden el máximo de 1 nivel en la línea " + yyline);
+                        }
+                    }
+
+"*$"                {
+                        commentLevel--;
+                        if (commentLevel == 0) {
+                            yybegin(YYINITIAL);
+                        }
+                    }
+
+[^]                 {/* ignorar cualquier caracter dentro del comentario */}
+}
 
 [^]		{ throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
