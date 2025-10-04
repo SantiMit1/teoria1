@@ -190,10 +190,8 @@ public class InterfazGrafica {
             }
         } else {
             try {
-                String rutaUsuario = System.getProperty("user.home");
-                String carpetaTP = rutaUsuario + File.separator + "TP_Teoria1";
-                new File(carpetaTP).mkdirs(); // crea la carpeta si no existe
-                archivo = new File(carpetaTP + File.separator + "archivo_nuevo.txt");
+                new File("./").mkdirs(); // crea la carpeta si no existe
+                archivo = new File("./archivo.txt");
 
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
                     bw.write(editorTexto.getText());
@@ -207,8 +205,7 @@ public class InterfazGrafica {
     }
 
     public void cargarArchivo() {
-        String rutaUsuario = System.getProperty("user.home");
-        fileChooser = new JFileChooser(rutaUsuario);
+        fileChooser = new JFileChooser("./");
         int opcion = fileChooser.showOpenDialog(null);
         if (opcion == JFileChooser.APPROVE_OPTION) {
             archivo = fileChooser.getSelectedFile();
