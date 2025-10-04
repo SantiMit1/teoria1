@@ -1,13 +1,10 @@
 package lexico;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.file.Path;
-import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class InterfazGrafica {
@@ -63,8 +60,8 @@ public class InterfazGrafica {
 
 
         contTitulo.add(titulo, BorderLayout.CENTER);
-        crear = new JButton ("Crear Archivo nuevo");
-        cargar = new JButton ("Cargar Archivo");
+        crear = new JButton("Crear Archivo nuevo");
+        cargar = new JButton("Cargar Archivo");
         JPanel contBotones = new JPanel(new BorderLayout());
         contBotones.add(crear, BorderLayout.WEST);
         contBotones.add(cargar, BorderLayout.EAST);
@@ -101,11 +98,11 @@ public class InterfazGrafica {
 
     // ---------------- PANTALLA RESPUESTA -------------------------------
 
-    public void pantallaRespuesta(){
+    public void pantallaRespuesta() {
 
         //Creo ventana
         pantallaRespuesta = new JFrame();
-        pantallaRespuesta.setSize(500,300);
+        pantallaRespuesta.setSize(500, 300);
         //Creo panel de la ventana
         contRespuesta = new JPanel(new BorderLayout());
         //Creo el editor para mostrar la respuesta
@@ -136,7 +133,7 @@ public class InterfazGrafica {
 
     }
 
-    public void crearEditor(){
+    public void crearEditor() {
         editorTexto = new JTextArea();
         editorTexto.setText(""); // limpiar antes
         contEditor = new JPanel(new BorderLayout());
@@ -145,12 +142,12 @@ public class InterfazGrafica {
         guardar = new JButton("Guardar cambios");
         compilar = new JButton("Compilar");
         salir = new JButton("Salir");
-        contbotonesEditor.add(guardar,BorderLayout.WEST);
-        contbotonesEditor.add(compilar,BorderLayout.CENTER);
-        contbotonesEditor.add(salir,BorderLayout.EAST);
+        contbotonesEditor.add(guardar, BorderLayout.WEST);
+        contbotonesEditor.add(compilar, BorderLayout.CENTER);
+        contbotonesEditor.add(salir, BorderLayout.EAST);
         contEditor.add(contbotonesEditor, BorderLayout.SOUTH);
         ventanaEditor = new JFrame("Editor de texto");
-        ventanaEditor.setSize(500,500);
+        ventanaEditor.setSize(500, 500);
         ventanaEditor.add(contEditor);
         //ventanaEditor.setVisible(true);
 
@@ -207,7 +204,8 @@ public class InterfazGrafica {
             }
         }
     }
-    public void cargarArchivo(){
+
+    public void cargarArchivo() {
         String rutaUsuario = System.getProperty("user.home");
         fileChooser = new JFileChooser(rutaUsuario);
         int opcion = fileChooser.showOpenDialog(null);
@@ -223,15 +221,19 @@ public class InterfazGrafica {
             }
         }
     }
-    public void cerrarEditor(JFrame editor){
+
+    public void cerrarEditor(JFrame editor) {
         editor.dispose();
     }
-    public void cargarTexto(ArrayList<String> respuesta){
+
+    public void cargarTexto(ArrayList<String> respuesta) {
         editorTextoRespuesta = new JTextArea();
-        for (String linea : lexico.getRespuesta()){
+        for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
-        };
+        }
+        ;
     }
+
     public void compilarArchivo() throws IOException {
         if (archivo == null || !archivo.exists()) {
             throw new FileNotFoundException("No se encontró el archivo a compilar.");
@@ -242,14 +244,14 @@ public class InterfazGrafica {
         cargarTexto(respuesta);
     }
 
-    public void pruebaRta(){
+    public void pruebaRta() {
         System.out.println(lexico.getRespuesta());
     }
 
     // --------------- STYLE ------------------------------
 
 
-    public void darleVida(){
+    public void darleVida() {
 
     }
 

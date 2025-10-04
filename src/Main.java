@@ -7,11 +7,7 @@ import lexico.Lexico;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        //try {
-            InterfazGrafica pantalla = new InterfazGrafica();
+        InterfazGrafica pantalla = new InterfazGrafica();
 
-        //} catch (Exception ex) {
-        //System.out.println("No se encontró el archivo");
-        //}
     }
 }
