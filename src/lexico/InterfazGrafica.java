@@ -192,16 +192,24 @@ public class InterfazGrafica {
             }
         } else {
             try {
-                archivo = new File("C:/Users/feder/IdeaProjects/TP_Teoria1/archivo_nuevo.txt");
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error al guardar el archivo");
-            }
+                String rutaUsuario = System.getProperty("user.home");
+                String carpetaTP = rutaUsuario + File.separator + "TP_Teoria1";
+                new File(carpetaTP).mkdirs(); // crea la carpeta si no existe
+                archivo = new File(carpetaTP + File.separator + "archivo_nuevo.txt");
 
-            //JOptionPane.showMessageDialog(null, "Primero debe cargar un archivo.");
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+                    bw.write(editorTexto.getText());
+                    JOptionPane.showMessageDialog(null, "Archivo guardado correctamente en:\n" + archivo.getAbsolutePath());
+                }
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el archivo: " + ex.getMessage());
+            }
         }
     }
     public void cargarArchivo(){
-        fileChooser = new JFileChooser("C:/Users/feder/IdeaProjects/TP_Teoria1/prueba.txt");
+        String rutaUsuario = System.getProperty("user.home");
+        fileChooser = new JFileChooser(rutaUsuario);
         int opcion = fileChooser.showOpenDialog(null);
         if (opcion == JFileChooser.APPROVE_OPTION) {
             archivo = fileChooser.getSelectedFile();
@@ -225,6 +233,9 @@ public class InterfazGrafica {
         };
     }
     public void compilarArchivo() throws IOException {
+        if (archivo == null || !archivo.exists()) {
+            throw new FileNotFoundException("No se encontró el archivo a compilar.");
+        }
         lexico = new Lexico(new FileReader(this.archivo));
         lexico.next_token();
         respuesta = lexico.getRespuesta();
