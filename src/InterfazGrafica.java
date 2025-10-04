@@ -1,4 +1,4 @@
-package lexico;
+import lexico.Lexico;
 
 import javax.swing.*;
 import java.awt.*;
