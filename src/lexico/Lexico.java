@@ -6,14 +6,11 @@ package lexico;
 import java_cup.runtime.*;
 import java_cup.sym;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 
 @SuppressWarnings("fallthrough")
 public class Lexico implements java_cup.runtime.Scanner {
-
-  public ArrayList<String> respuesta = new ArrayList<>();
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -42,10 +39,6 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
     "\1\0\u10ff\u0100";
-
-  public ArrayList<String> getRespuesta(){
-    return this.respuesta;
-  }
 
   private static int [] zzUnpackcmap_top() {
     int [] result = new int[4352];
@@ -381,6 +374,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   /* user code: */
     private int commentLevel = 0;
+
+    private List<String> respuesta = new ArrayList<>();
+    public List<String> getRespuesta() {
+        return respuesta;
+    }
 
 
   /**
@@ -854,15 +852,16 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 55: break;
           case 10:
-          { try {
+            { try {
         long valor = Long.parseLong(yytext());
         if (valor < -32768 || valor > 32767) {
             throw new Error("CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline);
         }
-        this.respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());
+        respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());
     } catch (NumberFormatException e) {
         throw new Error("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
-    }}
+    }
+            }
           // fall through
           case 56: break;
           case 11:

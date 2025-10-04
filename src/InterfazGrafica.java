@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InterfazGrafica {
 
@@ -42,7 +43,7 @@ public class InterfazGrafica {
     Lexico lexico;
 
     //Variable de tipo ArrayList para la respuesta del Lexico
-    ArrayList<String> respuesta;
+    List<String> respuesta;
 
     // ----------------------- PANTALLA PRINCIPAL -------------------------
 
@@ -226,7 +227,7 @@ public class InterfazGrafica {
         editor.dispose();
     }
 
-    public void cargarTexto(ArrayList<String> respuesta) {
+    public void cargarTexto(List<String> respuesta) {
         editorTextoRespuesta = new JTextArea();
         for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
