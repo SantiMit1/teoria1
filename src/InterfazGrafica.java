@@ -36,6 +36,13 @@ public class InterfazGrafica {
     JButton salir;
     JButton salirRespuesta;
 
+    //Scroll
+    JScrollPane panelScrolleable;
+    JScrollPane panelScrolleableEditor;
+    JScrollPane panelScrolleableRespuesta;
+
+
+
     //Archivo a cargar
     File archivo;
 
@@ -51,7 +58,7 @@ public class InterfazGrafica {
 
         ventanaPrincipal = new JFrame("TP 1 - Teoria de la computación");
         ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventanaPrincipal.setSize(300, 300);
+        ventanaPrincipal.setSize(450, 300);
         contPrincipal = new JPanel();
         contPrincipal.setLayout(new BorderLayout());
 
@@ -69,7 +76,10 @@ public class InterfazGrafica {
 
         contPrincipal.add(contTitulo, BorderLayout.NORTH);
         contPrincipal.add(contBotones, BorderLayout.SOUTH);
-        ventanaPrincipal.add(contPrincipal);
+
+        panelScrolleable = new JScrollPane(contPrincipal);
+        ventanaPrincipal.add(panelScrolleable);
+        ventanaPrincipal.setLocationRelativeTo(null);
         ventanaPrincipal.setVisible(true);
 
         //Acciones:
@@ -112,14 +122,17 @@ public class InterfazGrafica {
 
         //Creo boton para salir
         salirRespuesta = new JButton("Salir");
+        //Creo barra de scrol
 
         //Llamo al metodo para obtener la respuesta en el
-        cargarTexto(respuesta);
+        cargarTexto();
 
         contRespuesta.add(editorTextoRespuesta);
         contRespuesta.add(salirRespuesta, BorderLayout.SOUTH);
 
-        pantallaRespuesta.add(contRespuesta);
+        panelScrolleableRespuesta = new JScrollPane(contRespuesta);
+        pantallaRespuesta.add(panelScrolleableRespuesta);
+        pantallaRespuesta.pack();
         pantallaRespuesta.setVisible(true);
 
         salirRespuesta.addActionListener(new ActionListener() {
@@ -129,7 +142,6 @@ public class InterfazGrafica {
             }
         });
 
-        pruebaRta();
 
 
     }
@@ -147,10 +159,12 @@ public class InterfazGrafica {
         contbotonesEditor.add(compilar, BorderLayout.CENTER);
         contbotonesEditor.add(salir, BorderLayout.EAST);
         contEditor.add(contbotonesEditor, BorderLayout.SOUTH);
+
+        panelScrolleableEditor = new JScrollPane(contEditor);
         ventanaEditor = new JFrame("Editor de texto");
-        ventanaEditor.setSize(500, 500);
-        ventanaEditor.add(contEditor);
-        //ventanaEditor.setVisible(true);
+        //ventanaEditor.setSize(500, 500);
+        ventanaEditor.pack();
+        ventanaEditor.add(panelScrolleableEditor);
 
         //Accion Botones editor
         compilar.addActionListener(new ActionListener() {
@@ -224,7 +238,7 @@ public class InterfazGrafica {
         editor.dispose();
     }
 
-    public void cargarTexto(List<String> respuesta) {
+    public void cargarTexto() {
         editorTextoRespuesta = new JTextArea();
         for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
@@ -238,20 +252,11 @@ public class InterfazGrafica {
         }
         lexico = new Lexico(new FileReader(this.archivo));
         lexico.next_token();
-        respuesta = lexico.getRespuesta();
-        cargarTexto(respuesta);
+        cargarTexto();
     }
 
-    public void pruebaRta() {
-        System.out.println(lexico.getRespuesta());
-    }
 
     // --------------- STYLE ------------------------------
-
-
-    public void darleVida() {
-
-    }
 
 
 }
