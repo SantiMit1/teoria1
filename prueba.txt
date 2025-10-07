@@ -1,0 +1,101 @@
+$* Archivo de prueba para tokens del analizador léxico *$
+
+DECVAR
+    INT var1, var2, var3;
+    FLOAT float1, float2, float3;
+    STRING str1, str2;
+ENDDECVAR
+
+PROGRAM.SECTION
+    $* Prueba de constantes enteras *$
+    var1 := 123;
+    var2 := -456;
+    var3 := 0;
+
+    $* Prueba de constantes hexadecimales *$
+    var1 := 0h1A;
+    var2 := 0hFF;
+    var1 := 0hABC;
+    var2 := 0h123;
+
+    $* Prueba de constantes flotantes *$
+    float1 := 3.14;
+    float2 := -2.718;
+    float3 := 0.5;
+    float1 := .25;
+    float2 := 100.;
+    float3 := 123.456;
+
+    $* Prueba de constantes string *$
+    str1 := "Hola mundo";
+    str2 := "Prueba de cadena";
+    str1 := "";
+    str2 := "123abc!@#";
+
+    $* Prueba de operadores aritméticos *$
+    var1 := var2 + var3;
+    var1 := var2 - var3;
+    var1 := var2 * var3;
+    var1 := var2 / var3;
+
+    $* Prueba de operadores de comparación *$
+    var1 := var2 < var3;
+    var1 := var2 <= var3;
+    var1 := var2 > var3;
+    var1 := var2 >= var3;
+    var1 := var2 == var3;
+    var1 := var2 != var3;
+
+    $* Prueba de operadores lógicos *$
+    var2 && var3;
+    var2 || var3;
+
+    $* Prueba de palabras clave IF-THEN-ELSE *$
+    IF var1 > 0 THEN
+        var2 := 1;
+    ELSE
+        var2 := 0;
+
+    IF var1 == var2 THEN
+        var3 := var1;
+
+    $* Prueba de SHOW *$
+    SHOW var1;
+    SHOW "Mensaje de prueba";
+    SHOW float1;
+
+    $* Prueba de MAP - casos básicos *$
+    var1 := MAP(+ 5, [1, 2, 3]);
+    float1 := MAP(* 2.5, [var1, var2, var3]);
+    var2 := MAP(+ 0, [10, 20, 30, 40]);
+    float2 := MAP(* 1.0, [float1, float2]);
+
+    $* Prueba de delimitadores y puntuación *$
+    var1 := (var2 + var3);
+    var2 := [var1, var3];
+    var3 := {var1};
+
+    $* Prueba de asignación *$
+    var1 := var2;
+    float1 := float2;
+    str1 := str2;
+
+    $* Prueba de separadores *$
+    var1 := 1; var2 := 2; var3 := 3;
+
+    $* Comentarios de diferentes tipos *$
+    $* Comentario simple *$
+
+    $* Comentario con anidación $* comentario anidado *$ fin *$
+
+    $*
+    Comentario
+    multilinea
+    de prueba
+    *$
+
+    $* MAP con expresiones más complejas *$
+    var1 := MAP(+ 10, [var2+var3, var1*2, 100-50]);
+    float1 := MAP(* 0.5, [float2+1.0, 3.14, var1]);
+
+ENDPROGRAM.SECTION
