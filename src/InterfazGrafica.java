@@ -122,16 +122,18 @@ public class InterfazGrafica {
 
         //Creo boton para salir
         salirRespuesta = new JButton("Salir");
-        //Creo barra de scrol
 
         //Llamo al metodo para obtener la respuesta en el
         cargarTexto();
 
         contRespuesta.add(editorTextoRespuesta);
-        contRespuesta.add(salirRespuesta, BorderLayout.SOUTH);
 
+        //Barra de scroll
         panelScrolleableRespuesta = new JScrollPane(contRespuesta);
-        pantallaRespuesta.add(panelScrolleableRespuesta);
+
+        //Ventana de respuesta
+        pantallaRespuesta.add(panelScrolleableRespuesta, BorderLayout.CENTER);
+        pantallaRespuesta.add(salirRespuesta, BorderLayout.SOUTH);
         pantallaRespuesta.setVisible(true);
 
         salirRespuesta.addActionListener(new ActionListener() {
@@ -148,8 +150,8 @@ public class InterfazGrafica {
     public void crearEditor() {
         editorTexto = new JTextArea();
         editorTexto.setText(""); // limpiar antes
-        contEditor = new JPanel(new BorderLayout());
-        contEditor.add(editorTexto);
+        panelScrolleableEditor = new JScrollPane(editorTexto);
+
         JPanel contbotonesEditor = new JPanel(new BorderLayout());
         guardar = new JButton("Guardar cambios");
         compilar = new JButton("Compilar");
@@ -157,12 +159,11 @@ public class InterfazGrafica {
         contbotonesEditor.add(guardar, BorderLayout.WEST);
         contbotonesEditor.add(compilar, BorderLayout.CENTER);
         contbotonesEditor.add(salir, BorderLayout.EAST);
-        contEditor.add(contbotonesEditor, BorderLayout.SOUTH);
 
-        panelScrolleableEditor = new JScrollPane(contEditor);
         ventanaEditor = new JFrame("Editor de texto");
         ventanaEditor.setSize(500, 500);
-        ventanaEditor.add(panelScrolleableEditor);
+        ventanaEditor.add(panelScrolleableEditor, BorderLayout.CENTER);
+        ventanaEditor.add(contbotonesEditor, BorderLayout.SOUTH);
 
         //Accion Botones editor
         compilar.addActionListener(new ActionListener() {
