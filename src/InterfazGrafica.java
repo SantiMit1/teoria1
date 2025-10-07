@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InterfazGrafica {
@@ -14,16 +13,17 @@ public class InterfazGrafica {
     JFrame ventanaPrincipal;
     JFrame ventanaEditor;
     JFrame pantallaRespuesta;
+    JFrame ventanaTabla;
 
     //Contenedores
     JPanel contPrincipal;
-    JPanel contEditor;
     JPanel contRespuesta;
     JPanel contTitulo;
 
     //Entrada de texto
     JTextArea editorTexto;
     JTextArea editorTextoRespuesta;
+    JTextArea editorTextoTabla;
 
     //Entrada de archivo
     JFileChooser fileChooser;
@@ -35,11 +35,13 @@ public class InterfazGrafica {
     JButton compilar;
     JButton salir;
     JButton salirRespuesta;
+    JButton salirTabla;
 
     //Scroll
     JScrollPane panelScrolleable;
     JScrollPane panelScrolleableEditor;
     JScrollPane panelScrolleableRespuesta;
+    JScrollPane getPanelScrolleableTabla;
 
 
 
@@ -110,15 +112,16 @@ public class InterfazGrafica {
     // ---------------- PANTALLA RESPUESTA -------------------------------
 
     public void pantallaRespuesta() {
-
         //Creo ventana
-        pantallaRespuesta = new JFrame();
-        pantallaRespuesta.setSize(500, 300);
+        pantallaRespuesta = new JFrame("Tokens");
+        pantallaRespuesta.setSize(800, 600);
+        pantallaRespuesta.setLocationRelativeTo(null);
         //Creo panel de la ventana
         contRespuesta = new JPanel(new BorderLayout());
         //Creo el editor para mostrar la respuesta
         editorTextoRespuesta = new JTextArea();
         editorTextoRespuesta.setEditable(false);
+        editorTextoRespuesta.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
         //Creo boton para salir
         salirRespuesta = new JButton("Salir");
@@ -142,14 +145,12 @@ public class InterfazGrafica {
                 cerrarEditor(pantallaRespuesta);
             }
         });
-
-
-
     }
 
     public void crearEditor() {
         editorTexto = new JTextArea();
         editorTexto.setText(""); // limpiar antes
+        editorTexto.setFont(new Font("Monospaced", Font.PLAIN, 12));
         panelScrolleableEditor = new JScrollPane(editorTexto);
 
         JPanel contbotonesEditor = new JPanel(new BorderLayout());
@@ -161,7 +162,8 @@ public class InterfazGrafica {
         contbotonesEditor.add(salir, BorderLayout.EAST);
 
         ventanaEditor = new JFrame("Editor de texto");
-        ventanaEditor.setSize(500, 500);
+        ventanaEditor.setLocationRelativeTo(null);
+        ventanaEditor.setSize(800, 600);
         ventanaEditor.add(panelScrolleableEditor, BorderLayout.CENTER);
         ventanaEditor.add(contbotonesEditor, BorderLayout.SOUTH);
 
@@ -187,6 +189,31 @@ public class InterfazGrafica {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarEditor(ventanaEditor);
+            }
+        });
+    }
+
+    public void crearTabla() {
+        editorTextoTabla = new JTextArea();
+        editorTextoTabla.setEditable(false);
+        editorTextoTabla.setText(lexico.stringTabla());
+        editorTextoTabla.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+        getPanelScrolleableTabla = new JScrollPane(editorTextoTabla);
+        salirTabla = new JButton("Salir");
+
+        ventanaTabla = new JFrame("Tabla de Simbolos");
+        ventanaTabla.setLayout(new BorderLayout());
+        ventanaTabla.add(getPanelScrolleableTabla, BorderLayout.CENTER);
+        ventanaTabla.add(salirTabla, BorderLayout.SOUTH);
+        ventanaTabla.setSize(800, 600);
+        ventanaTabla.setLocationRelativeTo(null);
+        ventanaTabla.setVisible(true);
+
+        salirTabla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarEditor(ventanaTabla);
             }
         });
     }
@@ -242,7 +269,6 @@ public class InterfazGrafica {
         for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
         }
-        ;
     }
 
     public void compilarArchivo() throws IOException {
@@ -251,7 +277,9 @@ public class InterfazGrafica {
         }
         lexico = new Lexico(new FileReader(this.archivo));
         lexico.next_token();
+        lexico.crearArchivoTabla();
         cargarTexto();
+        crearTabla();
     }
 
 

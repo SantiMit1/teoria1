@@ -1,0 +1,42 @@
++--------------------------------+---------------+------------+--------------------------------+--------+
+| NOMBRE                         | TOKEN         | TIPO       | VALOR                          | LARGO  |
++--------------------------------+---------------+------------+--------------------------------+--------+
+| var1                             ID                                                                     |
+| var2                             ID                                                                     |
+| var3                             ID                                                                     |
+| float1                           ID                                                                     |
+| float2                           ID                                                                     |
+| float3                           ID                                                                     |
+| str1                             ID                                                                     |
+| str2                             ID                                                                     |
+| _123                             CONST_INT                    123                                       |
+| _456                             CONST_INT                    456                                       |
+| _0                               CONST_INT                    0                                         |
+| 0h1A                             CONST_HEX                    26                                        |
+| 0hFF                             CONST_HEX                    255                                       |
+| 0hABC                            CONST_HEX                    2748                                      |
+| 0h123                            CONST_HEX                    291                                       |
+| _3.14                            CONST_FLOAT                  3.14                                      |
+| _2.718                           CONST_FLOAT                  2.718                                     |
+| _0.5                             CONST_FLOAT                  0.5                                       |
+| _.25                             CONST_FLOAT                  .25                                       |
+| _100.                            CONST_FLOAT                  100.                                      |
+| _123.456                         CONST_FLOAT                  123.456                                   |
+| _Hola_mundo                      CONST_STRING                 "Hola mundo"                     10       |
+| _Prueba_de_cadena                CONST_STRING                 "Prueba de cadena"               16       |
+| _                                CONST_STRING                 ""                               0        |
+| _123abc!@#                       CONST_STRING                 "123abc!@#"                      9        |
+| _1                               CONST_INT                    1                                         |
+| _Mensaje_de_prueba               CONST_STRING                 "Mensaje de prueba"              17       |
+| _5                               CONST_INT                    5                                         |
+| _2                               CONST_INT                    2                                         |
+| _3                               CONST_INT                    3                                         |
+| _2.5                             CONST_FLOAT                  2.5                                       |
+| _10                              CONST_INT                    10                                        |
+| _20                              CONST_INT                    20                                        |
+| _30                              CONST_INT                    30                                        |
+| _40                              CONST_INT                    40                                        |
+| _1.0                             CONST_FLOAT                  1.0                                       |
+| _100                             CONST_INT                    100                                       |
+| _50                              CONST_INT                    50                                        |
++--------------------------------+---------------+------------+--------------------------------+--------+
