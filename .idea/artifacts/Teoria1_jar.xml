@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Teoria1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Teoria1_jar</output-path>
+    <root id="archive" name="Teoria1.jar">
+      <element id="module-output" name="Teoria1" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jflex-full-1.9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/java-cup-11b.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/java-cup-11b-runtime.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
