@@ -132,7 +132,6 @@ public class InterfazGrafica {
 
         panelScrolleableRespuesta = new JScrollPane(contRespuesta);
         pantallaRespuesta.add(panelScrolleableRespuesta);
-        pantallaRespuesta.pack();
         pantallaRespuesta.setVisible(true);
 
         salirRespuesta.addActionListener(new ActionListener() {
@@ -162,8 +161,7 @@ public class InterfazGrafica {
 
         panelScrolleableEditor = new JScrollPane(contEditor);
         ventanaEditor = new JFrame("Editor de texto");
-        //ventanaEditor.setSize(500, 500);
-        ventanaEditor.pack();
+        ventanaEditor.setSize(500, 500);
         ventanaEditor.add(panelScrolleableEditor);
 
         //Accion Botones editor
