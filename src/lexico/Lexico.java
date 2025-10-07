@@ -807,7 +807,7 @@ public class Lexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { respuesta.add(" - ERROR - Caracter no permitido: <" + yytext() + "> en la linea " + yyline);
+            { respuesta.add("Caracter no permitido: <" + yytext() + "> en la linea " + yyline);
             }
           // fall through
           case 47: break;
@@ -855,10 +855,11 @@ public class Lexico implements java_cup.runtime.Scanner {
             { try {
         long valor = Long.parseLong(yytext());
         if (valor < -32768 || valor > 32767) {
-            respuesta.add(" - ERROR - CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline );
-        }else{respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());}
+            respuesta.add("CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline);
+        }
+        respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());
     } catch (NumberFormatException e) {
-        respuesta.add(" - ERROR - CONST_INT inválido: " + yytext() + " en la linea " + yyline );
+        respuesta.add("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
     }
             }
           // fall through
@@ -919,10 +920,8 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 67: break;
           case 22:
-          {if (yytext().length() > 30 ){
-              respuesta.add(" - ERROR - CONST_STRING debe ser menor a 30 caracteres: " + yytext() + " en la linea " + yyline + 1);
-            }else {respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());}
-          }
+            { respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());
+            }
           // fall through
           case 68: break;
           case 23:
@@ -973,7 +972,7 @@ public class Lexico implements java_cup.runtime.Scanner {
           case 32:
             { commentLevel++;
                         if (commentLevel > 2) {
-                            respuesta.add(" - ERROR - Comentarios anidados exceden el máximo de 1 nivel en la línea " + yyline );
+                            respuesta.add("Comentarios anidados exceden el máximo de 1 nivel en la línea " + yyline);
                         }
             }
           // fall through

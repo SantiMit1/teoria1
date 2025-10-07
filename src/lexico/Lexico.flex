@@ -81,11 +81,11 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
     try {
         long valor = Long.parseLong(yytext());
         if (valor < -32768 || valor > 32767) {
-            throw new Error("CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline);
+            respuesta.add("CONST_INT fuera de rango 16 bits: " + yytext() + " en la linea " + yyline);
         }
         respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());
     } catch (NumberFormatException e) {
-        throw new Error("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
+        respuesta.add("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
     }
 }
 {CONST_FLOAT}             {respuesta.add("Token CONST_FLOAT encontrado, Lexema " + yytext());}
@@ -99,7 +99,7 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 "$*"                {
                         commentLevel++;
                         if (commentLevel > 2) {
-                            throw new Error("Comentarios anidados exceden el máximo de 1 nivel en la línea " + yyline);
+                            respuesta.add("Comentarios anidados exceden el máximo de 1 nivel en la línea " + yyline);
                         }
                     }
 
@@ -113,4 +113,4 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 [^]                 {/* ignorar cualquier caracter dentro del comentario */}
 }
 
-[^]		{ throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
+[^]		{ respuesta.add("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
