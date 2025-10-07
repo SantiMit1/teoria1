@@ -90,7 +90,12 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 }
 {CONST_FLOAT}             {respuesta.add("Token CONST_FLOAT encontrado, Lexema " + yytext());}
 {CONST_HEX}               {respuesta.add("Token HEX encontrado, Lexema " + yytext());}
-{CONST_STRING}            {respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());}
+{CONST_STRING}            {int largo = yytext().length() - 2;
+                          if (largo > 30) {
+                              respuesta.add("CONST_STRING excede el máximo de 30 caracteres: " + yytext() + " en la linea " + yyline);
+                          }
+                          respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());
+                        }
 
 {ESPACIO}           {/* ignorar */}
 }

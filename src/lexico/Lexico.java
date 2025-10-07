@@ -920,7 +920,11 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 67: break;
           case 22:
-            { respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());
+            { int largo = yytext().length() - 2;
+                          if (largo > 30) {
+                              respuesta.add("CONST_STRING excede el máximo de 30 caracteres: " + yytext() + " en la linea " + yyline);
+                          }
+                          respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());
             }
           // fall through
           case 68: break;
